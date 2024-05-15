@@ -7,8 +7,8 @@ function Signup() {
   return (
     <div className="Signup">
       <Navigation />
-      <div className="pt-28">
-        <div className="mt-10">
+      <div className="md:pt-28 pt-20">
+        <div className="md:mt-10 mt-2">
           <div className="container max-w-screen-sm m-auto pt-20 p-5">
             <form>
               <h1 className="text-orange mb-5 md:text-2xl font-bold">
@@ -40,7 +40,13 @@ function Signup() {
                   Signup
                 </button>
                 <p>
-                  Already have an account? <Link to="/login" className="border-b-2 text-orange hover:text-darkOrange">Login</Link>
+                  Already have an account?{" "}
+                  <Link
+                    to="/login"
+                    className="border-b-2 text-orange hover:text-darkOrange"
+                  >
+                    Login
+                  </Link>
                 </p>
               </div>
             </form>
