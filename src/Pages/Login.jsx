@@ -18,13 +18,13 @@ function Login() {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="p-3"
+                  className="p-3 bg-lightBlue outline-none"
                   required
                 />
                 <input
                   type="password"
                   placeholder="Password"
-                  className="p-3"
+                  className="p-3 bg-lightBlue outline-none"
                   required
                 />
                 <button
