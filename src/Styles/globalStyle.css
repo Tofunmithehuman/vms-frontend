@@ -1,0 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+}
+input {
+  box-shadow: 4px 4px #c26400;
+  border-radius: 2px;
+}

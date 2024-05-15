@@ -1,0 +1,54 @@
+import React from "react";
+import Navigation from "../Components/Navigation";
+import "../Styles/globalStyle.css";
+import { Link } from "react-router-dom";
+
+function Signup() {
+  return (
+    <div className="Signup">
+      <Navigation />
+      <div className="pt-28">
+        <div className="mt-10">
+          <div className="container max-w-screen-sm m-auto pt-20 p-5">
+            <form>
+              <h1 className="text-orange mb-5 md:text-2xl font-bold">
+                Welcome, Signup to Create Account
+              </h1>
+              <div className="flex flex-col gap-7">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="p-3 bg-lightBlue outline-none"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="p-3 bg-lightBlue outline-none"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="p-3 bg-lightBlue outline-none"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-orange text-white font-bold rounded p-3 hover:bg-darkOrange duration-200 ease-in-out"
+                >
+                  Signup
+                </button>
+                <p>
+                  Already have an account? <Link to="/login" className="border-b-2 text-orange hover:text-darkOrange">Login</Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;
