@@ -7,7 +7,7 @@ function Signup() {
   return (
     <div className="Signup">
       <Navigation />
-      <div className="md:pt-28 pt-20">
+      <div className="SignUpContainer md:pt-28 pt-20">
         <div className="md:mt-10 mt-2">
           <div className="container max-w-screen-sm m-auto pt-20 p-5">
             <form>

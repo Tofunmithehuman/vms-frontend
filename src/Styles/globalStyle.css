@@ -4,7 +4,17 @@
   text-decoration: none;
   list-style: none;
 }
-input {
+input,
+textarea,
+select {
   box-shadow: 4px 4px #c26400;
   border-radius: 2px;
+}
+.Navigation {
+  z-index: 100;
+}
+.SignUpContainer,
+.VisitorFormContainer,
+.LoginContainer {
+  z-index: -100;
 }
