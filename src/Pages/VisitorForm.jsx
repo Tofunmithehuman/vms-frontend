@@ -11,7 +11,7 @@ function VisitorForm() {
         <div className="mt-2">
           <div className="container max-w-screen-sm m-auto pt-20 p-5">
             <form>
-              <h1 className="text-orange mb-5 md:text-2xl font-bold">
+              <h1 className="text-orange mb-5 md:text-2xl font-bold text-xl">
                 Send a request to a Staff
               </h1>
               <div className="flex flex-col gap-7">
