@@ -15,9 +15,11 @@ function Navigation() {
             />
           </Link>
           <nav>
-            {/* <ul>
-              <li className="text-gray hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100">Home</li>
-            </ul> */}
+            <ul>
+              <li>
+                <Link to="/login" className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-lg md:me-20 font-medium">Login</Link>
+              </li>
+            </ul>
           </nav>
         </header>
       </div>

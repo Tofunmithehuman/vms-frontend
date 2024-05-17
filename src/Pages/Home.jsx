@@ -1,9 +1,20 @@
 import React from "react";
+import { useState } from "react";
 import "../Styles/globalStyle.css";
 import Navigation from "../Components/Navigation";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const [number, setNumber] = useState(0);
+
+  const handleDecrement = () => {
+    setNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const handleIncrement = () => {
+    setNumber((prevNumber) => prevNumber + 1);
+  };
+
   return (
     <div className="Home">
       <Navigation />
@@ -18,9 +29,19 @@ function Home() {
             <div className="shadow-lg p-8 w-80 rounded">
               <h1 className="mb-8 font-bold text-lg">Total No. of people</h1>
               <div className="flex justify-between items-center p-2">
-                <p className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer">-</p>
-                <p className="text-4xl text-orange">200</p>
-                <p className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer">+</p>
+                <p
+                  className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer w-10 text-center"
+                  onClick={handleDecrement}
+                >
+                  -
+                </p>
+                <p className="text-4xl text-orange">{number}</p>
+                <p
+                  className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer w-10 text-center"
+                  onClick={handleIncrement}
+                >
+                  +
+                </p>
               </div>
             </div>
             <div className="shadow-lg p-8 w-80 rounded flex flex-col">
