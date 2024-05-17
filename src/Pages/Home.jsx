@@ -28,7 +28,7 @@ function Home() {
           <div className="flex flex-wrap gap-10 justify-evenly align-center mt-20">
             <div className="shadow-lg p-8 w-80 rounded">
               <h1 className="font-bold text-lg">Total No. of people</h1>
-              <p className="mt-2 mb-3 text-sm text-gray">
+              <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Architecto enim porro aliquid ut magnam doloribus.
               </p>
@@ -50,7 +50,7 @@ function Home() {
             </div>
             <div className="shadow-lg p-8 w-80 rounded flex flex-col">
               <h1 className="font-bold text-lg">Send a request </h1>
-              <p className="mt-2 mb-3 text-sm text-gray">
+              <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Architecto enim porro aliquid ut magnam doloribus.
               </p>
