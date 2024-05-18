@@ -5,6 +5,13 @@ import Navigation from "../Components/Navigation";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   const [number, setNumber] = useState(0);
 
   const handleDecrement = () => {
@@ -29,8 +36,8 @@ function Home() {
             <div className="shadow-lg p-8 w-80 rounded">
               <h1 className="font-bold text-lg">Total No. of people</h1>
               <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto enim porro aliquid ut magnam doloribus.
+                The total number of people present in Transcorp Power PLC as of{" "}
+                {formattedDate} is being recorded and analyzed.
               </p>
               <div className="flex justify-between items-center">
                 <p
@@ -51,8 +58,8 @@ function Home() {
             <div className="shadow-lg p-8 w-80 rounded flex flex-col">
               <h1 className="font-bold text-lg">Send a request </h1>
               <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto enim porro aliquid ut magnam doloribus.
+                To send a visitor request to any personnel in Transcorp Power
+                PLC, please press the "Request Page" button.
               </p>
               <Link
                 to="/visitorForm"
