@@ -1,8 +1,14 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/globalStyle.css";
 
 function Navigation() {
+  const [hideLogin, setHideLogin] = useState(false);
+
+  const handleLoginClick = () => {
+    setHideLogin(true);
+    console.log("handling click ...")
+  };
   return (
     <div className="Navigation z-50">
       <div className="w-100 fixed top-0 left-0 right-0 shadow bg-white">
@@ -16,9 +22,17 @@ function Navigation() {
           </Link>
           <nav>
             <ul>
-              <li>
-                <Link to="/login" className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-lg md:me-20 font-medium">Login</Link>
-              </li>
+              {!hideLogin && (
+                <li>
+                  <Link
+                    to="/login"
+                    className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-lg md:me-20 font-medium"
+                    onClick={handleLoginClick}
+                  >
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </header>

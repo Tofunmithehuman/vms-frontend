@@ -1,7 +1,7 @@
-import React from "react";
 import { useState } from "react";
 import "../Styles/globalStyle.css";
 import Navigation from "../Components/Navigation";
+import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -40,19 +40,19 @@ function Home() {
                 {formattedDate} is being recorded and analyzed.
               </p>
               <div className="flex justify-between items-center">
-                <p
+                <button
                   className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer w-10 text-center"
                   onClick={handleDecrement}
                 >
                   -
-                </p>
+                </button>
                 <p className="text-4xl text-orange">{number}</p>
-                <p
+                <button
                   className="bg-orange text-white p-2 rounded-lg text-xl font-bold cursor-pointer w-10 text-center"
                   onClick={handleIncrement}
                 >
                   +
-                </p>
+                </button>
               </div>
             </div>
             <div className="shadow-lg p-8 w-80 rounded flex flex-col">
@@ -71,6 +71,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import React from "react";
 import Navigation from "../Components/Navigation";
+import Footer from "../Components/Footer";
 import "../Styles/globalStyle.css";
 import { Link } from "react-router-dom";
 
@@ -53,6 +53,7 @@ function Signup() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
