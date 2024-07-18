@@ -4,12 +4,15 @@ import "../Styles/globalStyle.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../Redux/userSlice";
 import axios from "../axios";
 
 function Login() {
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +29,8 @@ function Login() {
         }
       );
 
-      console.log(response.data);
+      const user = response.data; 
+      dispatch(setUser(user));
       navigate("/");
     } catch (error) {
       console.error("There was an error logging in.", error.response || error);
