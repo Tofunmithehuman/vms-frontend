@@ -1,25 +1,46 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../Styles/globalStyle.css";
 import Navigation from "../Components/Navigation";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
-
+import { useEffect, useMemo } from "react";
+import {
+  fetchVisitorCount,
+  updateVisitorCount,
+} from "../Redux/visitorCountSlice";
 function Home() {
-  const today = new Date();
+  const dispatch = useDispatch();
+  const number = useSelector((state) => state.visitorCount.count);
+
+  const today = useMemo(() => new Date(), []);
   const formattedDate = today.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  const [number, setNumber] = useState(0);
+  useEffect(() => {
+    dispatch(fetchVisitorCount(today.toISOString().split("T")[0]));
+  }, [dispatch, today]);
 
   const handleDecrement = () => {
-    setNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+    if (number > 0) {
+      dispatch(
+        updateVisitorCount({
+          date: today.toISOString().split("T")[0],
+          count: number - 1,
+        })
+      );
+    }
   };
 
   const handleIncrement = () => {
-    setNumber((prevNumber) => prevNumber + 1);
+    dispatch(
+      updateVisitorCount({
+        date: today.toISOString().split("T")[0],
+        count: number + 1,
+      })
+    );
   };
 
   return (
