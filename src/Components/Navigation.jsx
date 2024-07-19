@@ -82,20 +82,18 @@ function Navigation() {
                 <ul
                   className={`dropdown ${
                     menuOpen ? "open" : ""
-                  } md:hidden flex justify-between flex-col `}
+                  } md:hidden flex gap-8 flex-col `}
                 >
                   <li>
-                    <span className="text-darkOrange text-lg font-medium">
+                    <span className="text-darkOrange text-xl font-medium">
                       Welcome {getFirstName(user.name)}
                     </span>
                   </li>
-                  <li className="text-right">
-                    <button
-                      onClick={handleLogout}
-                      className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-md font-medium"
-                    >
-                      Logout <i className="fa-solid fa-share"></i>
-                    </button>
+                  <li className="cursor-pointer text-md text-gray">
+                    <Link to="/visitorForm">Request Page</Link> <i className="fa-solid fa-paper-plane"></i>
+                  </li>
+                  <li className="cursor-pointer text-md text-gray">
+                    <button onClick={handleLogout}>Logout</button> <i className="fa-solid fa-door-open"></i>
                   </li>
                 </ul>
               </>
