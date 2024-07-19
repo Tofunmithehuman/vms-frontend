@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import "../Styles/globalStyle.css";
-import { setUser, logoutUser } from "../Redux/userSlice"; // Correct import path
+import { setUser, logoutUser } from "../Redux/userSlice";
 
 function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +20,6 @@ function Navigation() {
   };
 
   useEffect(() => {
-    // Rehydrate user from local storage on component mount
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       dispatch(setUser(storedUser));
@@ -29,7 +28,7 @@ function Navigation() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
   return (
@@ -71,30 +70,43 @@ function Navigation() {
               )}
             </ul>
 
-            <i
-              className={`fa-solid ${
-                menuOpen ? "fa-times" : "fa-bars"
-              } md:hidden block`}
-              onClick={toggleMenu}
-            ></i>
+            {user ? (
+              <>
+                <i
+                  className={`fa-solid ${
+                    menuOpen ? "fa-times" : "fa-bars"
+                  } md:hidden block text-lg`}
+                  onClick={toggleMenu}
+                ></i>
 
-            <ul
-              className={`dropdown ${menuOpen ? "open" : ""} md:hidden flex justify-between flex-col `}
-            >
-              <li>
-                <span className="text-darkOrange text-lg font-medium">
-                  Welcome {getFirstName(user.name)}
-                </span>
-              </li>
-              <li className="text-right">
-                <button
-                  onClick={handleLogout}
-                  className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-md font-medium"
+                <ul
+                  className={`dropdown ${
+                    menuOpen ? "open" : ""
+                  } md:hidden flex justify-between flex-col `}
                 >
-                  Logout <i className="fa-solid fa-share"></i>
-                </button>
-              </li>
-            </ul>
+                  <li>
+                    <span className="text-darkOrange text-lg font-medium">
+                      Welcome {getFirstName(user.name)}
+                    </span>
+                  </li>
+                  <li className="text-right">
+                    <button
+                      onClick={handleLogout}
+                      className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-md font-medium"
+                    >
+                      Logout <i className="fa-solid fa-share"></i>
+                    </button>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-sm md:text-lg font-medium md:hidden block"
+              >
+                Login
+              </Link>
+            )}
           </nav>
         </header>
       </div>
