@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../Styles/globalStyle.css";
 import Navigation from "../Components/Navigation";
@@ -11,6 +12,9 @@ import {
 function Home() {
   const dispatch = useDispatch();
   const number = useSelector((state) => state.visitorCount.count);
+  const user = useSelector((state) => state.user.user);
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const today = useMemo(() => new Date(), []);
   const formattedDate = today.toLocaleDateString("en-US", {
@@ -24,23 +28,42 @@ function Home() {
   }, [dispatch, today]);
 
   const handleDecrement = () => {
-    if (number > 0) {
+    if (user?.isAdmin && number > 0) {
       dispatch(
         updateVisitorCount({
           date: today.toISOString().split("T")[0],
           count: number - 1,
         })
       );
+    } else {
+      showModalWithTimeout(
+        "You must be an admin to perform this action."
+      );
     }
   };
 
   const handleIncrement = () => {
-    dispatch(
-      updateVisitorCount({
-        date: today.toISOString().split("T")[0],
-        count: number + 1,
-      })
-    );
+    if (user?.isAdmin) {
+      dispatch(
+        updateVisitorCount({
+          date: today.toISOString().split("T")[0],
+          count: number + 1,
+        })
+      );
+    } else {
+      showModalWithTimeout(
+        "You must be an admin to perform this action."
+      );
+    }
+  };
+
+  const showModalWithTimeout = (message) => {
+    setErrorMessage(message);
+    setShowModal(true);
+
+    setTimeout(() => {
+      setShowModal(false);
+    }, 5000);
   };
 
   return (
@@ -53,7 +76,18 @@ function Home() {
             Transcorp Power <br /> Visitor Management System (VMS)
           </h1>
 
-          <div className="flex flex-wrap gap-10 justify-evenly align-center mt-20">
+          <div className="hidden md:block mt-10">
+              {showModal && (
+                <div>
+                  <div className="flex items-center gap-3 p-3 bg-red-100 rounded justify-center m-auto max-w-md">
+                    <i className="fa-solid fa-triangle-exclamation text-red-500"></i>
+                    <p className="text-xs">{errorMessage}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-10 justify-evenly align-center mt-20">
             <div className="shadow-lg p-8 w-80 rounded">
               <h1 className="font-bold text-lg">Total No. of people</h1>
               <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
@@ -76,6 +110,18 @@ function Home() {
                 </button>
               </div>
             </div>
+
+            <div className="block md:hidden">
+              {showModal && (
+                <div>
+                  <div className="flex items-center gap-3 p-3 bg-red-100 rounded">
+                    <i className="fa-solid fa-triangle-exclamation text-red-500"></i>
+                    <p className="text-xs">{errorMessage}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="shadow-lg p-8 w-80 rounded flex flex-col">
               <h1 className="font-bold text-lg">Send a request </h1>
               <p className="mt-2 mb-3 text-xs md:text-sm text-gray">
