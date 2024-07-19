@@ -48,7 +48,7 @@ function VisitorForm() {
       navigate("/"); 
     } catch (error) {
       console.error("Error submitting form:", error);
-      setErrorMessage(error.response?.data || "Error submitting form. Please try again.");
+      setErrorMessage("Error submitting form. Please try again.");
       setShowModal(true);
       
 
