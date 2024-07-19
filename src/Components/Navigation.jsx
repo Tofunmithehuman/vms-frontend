@@ -38,7 +38,7 @@ function Navigation() {
           <img
             src="https://i0.wp.com/transcorppower.com/wp-content/uploads/2023/12/Transcorp-Power.png?fit=259%2C37&ssl=1"
             alt="Logo"
-            className="md:w-23 md:h-8 w-17 h-4"
+            className="md:w-23 md:h-8 w-17 h-5"
           />
           <nav>
             <ul className="hidden md:block">
@@ -75,7 +75,7 @@ function Navigation() {
                 <i
                   className={`fa-solid ${
                     menuOpen ? "fa-times" : "fa-bars"
-                  } md:hidden block text-lg`}
+                  } md:hidden block text-2xl`}
                   onClick={toggleMenu}
                 ></i>
 
