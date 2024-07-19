@@ -82,7 +82,7 @@ function Navigation() {
                 <ul
                   className={`dropdown ${
                     menuOpen ? "open" : ""
-                  } md:hidden flex gap-8 flex-col `}
+                  } md:hidden flex gap-10 flex-col `}
                 >
                   <li>
                     <span className="text-darkOrange text-xl font-medium">
