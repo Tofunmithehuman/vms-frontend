@@ -1,9 +1,27 @@
+import { useState, useEffect } from "react";
 import Navigation from "../Components/Navigation";
 import Footer from "../Components/Footer";
 import "../Styles/globalStyle.css";
 import { Link } from "react-router-dom";
+import axios from "../axios";
 
 function VisitorForm() {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await axios.get("/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+  
   return (
     <div className="VisitorForm">
       <Navigation />
@@ -40,10 +58,6 @@ function VisitorForm() {
                   placeholder="Purpose description"
                   className="p-3 bg-lightBlue outline-none"
                 ></textarea>
-                <p className="text-orange -mt-2 -mb-5">
-                  Upload Photo (Optional)
-                </p>
-                <input type="file" className="p-3 bg-lightBlue outline-none" />
                 <p className="text-orange -mt-2 -mb-5">Select Staff</p>
                 <select
                   name="workers"
@@ -53,11 +67,11 @@ function VisitorForm() {
                   <option value="worker" disabled>
                     Choose a staff
                   </option>
-                  <option value="john">John (Electrical)</option>
-                  <option value="emma">Emma (I & C)</option>
-                  <option value="michael">Michael (Mechanical)</option>
-                  <option value="sarah">Sarah (Finance)</option>
-                  <option value="david">David (Warehouse)</option>
+                  {users.map((user) => (
+                    <option key={user._id} value={user._id}>
+                      {user.name}
+                    </option>
+                  ))}
                 </select>
                 <button
                   type="submit"
