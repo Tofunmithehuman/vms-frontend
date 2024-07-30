@@ -49,12 +49,18 @@ function Navigation() {
                       Welcome {getFirstName(user.name)}
                     </span>
                   </li>
+                  <li className="text-darkOrange text-sm md:text-lg font-medium hover:text-gray duration-100 ease-in-out">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li className="text-darkOrange text-sm md:text-lg font-medium hover:text-gray duration-100 ease-in-out">
+                    <Link to="/invitations">Invitation</Link>
+                  </li>
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="text-darkOrange hover:border-b-2 border-orange cursor-pointer ease-in-out duration-100 text-sm md:text-lg font-medium"
+                      className="text-darkOrange hover:text-gray duration-100 ease-in-out cursor-pointer ease-in-out duration-100 text-sm md:text-lg font-medium"
                     >
-                      Logout <i className="fa-solid fa-share"></i>
+                      Logout
                     </button>
                   </li>
                 </div>
@@ -90,7 +96,13 @@ function Navigation() {
                     </span>
                   </li>
                   <li className="cursor-pointer text-md text-gray">
+                    <Link to="/">Home</Link> <i className="fa-solid fa-house"></i>
+                  </li>
+                  <li className="cursor-pointer text-md text-gray">
                     <Link to="/visitorForm">Request Page</Link> <i className="fa-solid fa-paper-plane"></i>
+                  </li>
+                  <li className="cursor-pointer text-md text-gray">
+                    <Link to="/invitations">Invitation Page</Link> <i className="fa-regular fa-calendar-check"></i>
                   </li>
                   <li className="cursor-pointer text-md text-gray">
                     <button onClick={handleLogout}>Logout</button> <i className="fa-solid fa-door-open"></i>
