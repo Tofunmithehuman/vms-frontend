@@ -32,12 +32,15 @@ function Invitation() {
     }
   };
 
-  const handleResponse = async (requestId, status) => {
+  const handleResponse = async (requestId, status, reason) => {
     setShowModal(false);
     setErrorMessage("");
     setSuccessMessage("");
     try {
-      await axios.post(`/users/respond-to-invitation/${requestId}`, { status });
+      await axios.post(`/users/respond-to-invitation/${requestId}`, {
+        status,
+        reason,
+      });
       setSuccessMessage("Response submitted successfully!");
       setShowSuccessModal(true);
       console.log("Response submitted");
@@ -62,7 +65,10 @@ function Invitation() {
     <div className="Invitation">
       <Navigation />
       <div className="pt-20">
-        <div className="sm:pt-20 pt-10 px-4 max-w-4xl m-auto" style={{height:"67vh"}}>
+        <div
+          className="sm:pt-20 pt-10 px-4 max-w-4xl m-auto"
+          style={{ height: "67vh" }}
+        >
           <h1 className="text-orange font-bold text-xl md:text-3xl mb-6 text-center">
             Pending Invitations
           </h1>
@@ -87,41 +93,57 @@ function Invitation() {
               <p className="text-center">No pending invitations.</p>
             ) : (
               invitations.map((invitation) => (
-                <div
+                <InvitationCard
                   key={invitation._id}
-                  className="bg-white shadow-md rounded-lg p-6 mb-4 w-full max-w-[370px]"
-                >
-                  <h2 className="text-xl font-semibold">
-                    {invitation.fullName}
-                  </h2>
-                  <p className="text-gray-600">{invitation.email}</p>
-                  <p className="mt-2">
-                    <strong>Purpose:</strong> {invitation.purpose}
-                  </p>
-                  <p>
-                    <strong>Description:</strong> {invitation.description}
-                  </p>
-                  <div className="mt-4 flex flex-col gap-2">
-                    <button
-                      onClick={() => handleResponse(invitation._id, "accepted")}
-                      className="bg-orange text-white font-bold rounded p-3 hover:bg-darkOrange duration-200 ease-in-out text-center cursor-pointer"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleResponse(invitation._id, "declined")}
-                      className="bg-orange text-white font-bold rounded p-3 hover:bg-darkOrange duration-200 ease-in-out text-center cursor-pointer"
-                    >
-                      Decline
-                    </button>
-                  </div>
-                </div>
+                  invitation={invitation}
+                  onRespond={handleResponse}
+                />
               ))
             )}
           </div>
         </div>
       </div>
       <Footer />
+    </div>
+  );
+}
+
+function InvitationCard({ invitation, onRespond }) {
+  const [reason, setReason] = useState("");
+
+  return (
+    <div className="bg-white shadow-md rounded-lg p-6 mb-4 w-full max-w-[370px]">
+      <h2 className="text-xl font-semibold">{invitation.fullName}</h2>
+      <p className="text-gray-600">{invitation.email}</p>
+      <p className="mt-2">
+        <strong>Purpose:</strong> {invitation.purpose}
+      </p>
+      <p>
+        <strong>Description:</strong> {invitation.description}
+      </p>
+      <div className="mt-4">
+        <textarea
+          className="w-full p-3 bg-lightBlue outline-none rounded mb-4"
+          rows="3"
+          placeholder="Enter your reason (optional)"
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+        ></textarea>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => onRespond(invitation._id, "accepted", reason)}
+            className="bg-green-500 text-white font-bold rounded p-3 hover:bg-green-600 duration-200 ease-in-out text-center cursor-pointer"
+          >
+            Accept
+          </button>
+          <button
+            onClick={() => onRespond(invitation._id, "declined", reason)}
+            className="bg-red-500 text-white font-bold rounded p-3 hover:bg-red-600 duration-200 ease-in-out text-center cursor-pointer"
+          >
+            Decline
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

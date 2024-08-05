@@ -84,8 +84,9 @@ function VisitorForm() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email (Optional)"
+                  placeholder="Email"
                   className="p-3 bg-lightBlue outline-none"
+                  required
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -105,6 +106,7 @@ function VisitorForm() {
                   rows="4"
                   placeholder="Purpose description"
                   className="p-3 bg-lightBlue outline-none"
+                  required
                   value={formData.description}
                   onChange={handleChange}
                 ></textarea>
