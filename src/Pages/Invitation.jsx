@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "../axios";
 import Navigation from "../Components/Navigation";
 import Footer from "../Components/Footer";
+import { useSelector } from "react-redux";
 
 function Invitation() {
   const [invitations, setInvitations] = useState([]);
@@ -9,28 +10,20 @@ function Invitation() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const user = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    fetchInvitations();
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      setShowModal(false);
-      setShowSuccessModal(false);
-      setErrorMessage("");
-      setSuccessMessage("");
-    };
-  }, []);
-
-  const fetchInvitations = async () => {
+  const fetchInvitations = useCallback(async () => {
     try {
-      const response = await axios.get("/users/visitor-requests");
+      const response = await axios.get(`/users/visitor-requests/${user._id}`);
       setInvitations(response.data);
     } catch (error) {
       console.error("Error fetching invitations:", error);
     }
-  };
+  }, [user._id]);
+
+  useEffect(() => {
+    fetchInvitations();
+  }, [fetchInvitations]);
 
   const handleResponse = async (requestId, status, reason) => {
     setShowModal(false);
@@ -113,18 +106,18 @@ function InvitationCard({ invitation, onRespond }) {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-4 w-full max-w-[370px]">
-      <h2 className="text-xl font-semibold">{invitation.fullName}</h2>
-      <p className="text-gray-600">{invitation.email}</p>
-      <p className="mt-2">
+      <h2 className="text-lg font-semibold">{invitation.fullName}</h2>
+      <p className="text-gray-600 text-sm">{invitation.email}</p>
+      <p className="mt-2 text-sm">
         <strong>Purpose:</strong> {invitation.purpose}
       </p>
-      <p>
+      <p className="text-sm">
         <strong>Description:</strong> {invitation.description}
       </p>
       <div className="mt-4">
         <textarea
-          className="w-full p-3 bg-lightBlue outline-none rounded mb-4"
-          rows="3"
+          className="w-full p-2 bg-lightBlue outline-none rounded mb-4"
+          rows="2"
           placeholder="Enter your reason (optional)"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
@@ -132,13 +125,13 @@ function InvitationCard({ invitation, onRespond }) {
         <div className="flex flex-col gap-2">
           <button
             onClick={() => onRespond(invitation._id, "accepted", reason)}
-            className="bg-green-500 text-white font-bold rounded p-3 hover:bg-green-600 duration-200 ease-in-out text-center cursor-pointer"
+            className="bg-green-500 text-white font-bold rounded p-2 text-xs hover:bg-green-600 duration-200 ease-in-out text-center cursor-pointer"
           >
             Accept
           </button>
           <button
             onClick={() => onRespond(invitation._id, "declined", reason)}
-            className="bg-red-500 text-white font-bold rounded p-3 hover:bg-red-600 duration-200 ease-in-out text-center cursor-pointer"
+            className="bg-red-500 text-white font-bold rounded p-2 text-xs hover:bg-red-600 duration-200 ease-in-out text-center cursor-pointer"
           >
             Decline
           </button>

@@ -35,22 +35,23 @@ function VisitorForm() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setShowModal(false); 
-    setErrorMessage(""); 
-  
+    setShowModal(false);
+    setErrorMessage("");
+
     try {
-      await axios.post("users/send-visitor-form", formData);
+      await axios.post("users/send-visitor-form", {
+        ...formData,
+        userId: formData.selectedUserId,
+      });
       alert("Visitor form submitted successfully!");
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       console.error("Error submitting form:", error);
       setErrorMessage("Error submitting form. Please try again.");
       setShowModal(true);
-      
 
       setTimeout(() => {
         setShowModal(false);
